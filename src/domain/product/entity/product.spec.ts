@@ -1,4 +1,5 @@
 import Product from "./product";
+import NotificationError from "../../@shared/notification/notification.error";
 
 describe("Product unit tests", () => {
   it("should throw error when id is empty", () => {
@@ -17,6 +18,12 @@ describe("Product unit tests", () => {
     expect(() => {
       const product = new Product("123", "Name", -1);
     }).toThrowError("Price must be greater than zero");
+  });
+  
+  it("should throw error when id and name are empty (accumulate two errors)", () => {
+    expect(() => {
+      const product = new Product("", "", 100);
+    }).toThrowError("product: Id is required,product: Name is required");
   });
 
   it("should change name", () => {
